@@ -1,0 +1,268 @@
+ 
+
+ /* 
+ 
+ 1. game board 
+ 2. each cell 
+ 3. O, X icon. 
+ 4. Win or lose message
+ 5. score board
+
+ 6. aside: score board. 
+ 7. aside: player one, player two
+ 
+ 8. when turn change, player bord flashing. 
+
+ */
+*{
+  border: 1px solid #80bd9e;
+  border-radius: 0.5em;
+  
+ 
+}
+
+  
+  body{
+    border: none;
+    position: relative;
+  }
+
+
+
+.svg{ width: 400px; 
+
+}
+
+.container{
+  width: 1020px; 
+  /* Even though I use grid, I still have to setup the total width of the containcer */
+
+  margin: 8em;
+  display:grid; 
+  grid-template-columns: 710px 300px; 
+  grid-template-rows: auto auto auto; 
+  border-radius: 2em;
+  border: none;
+  /* position: relative;  */
+  
+}
+
+.header{
+  border-top-left-radius: 0.5em;  
+  border-top-right-radius: 0.5em;
+  background-color: #80bd9e;
+  grid-column: 1/ 3;
+  grid-row: 1/2; 
+  text-align: center;
+}
+
+.title, .game{
+  background-color: #f98866;
+  border-radius: 0.3em;
+  
+}
+
+
+
+ .gameboard{
+   grid-column:1/2; 
+   grid-row: 2/3; 
+   border-bottom-left-radius: 2em;
+
+   display: grid;   
+   grid-template-columns: 12em 2em 12em 2em 12em;
+   grid-template-rows: 12em 2em 12em  2em 12em;
+   width: 700px;
+   height: 700px;
+   background-color: white;
+   /* position: relative; */
+   
+ }
+
+ .cells{
+   /* display: grid;  */
+   /* position: relative;  */
+   grid-template-columns: 1/2;
+   grid-template-rows: 1/2;
+   border: none;
+   display: flex;
+   justify-content: center;
+   align-content: center;
+   
+   
+ }
+
+
+
+.line1{
+  grid-column: 2/3;
+  grid-row: 1/6
+}
+
+.line2{ 
+  grid-column: 4/5;
+  grid-row: 1/6
+}
+.line3{
+
+  grid-column: 1/6;
+  grid-row: 2/3
+}
+.line4{
+
+  grid-column: 1/6;
+  grid-row: 4/5
+}
+ 
+ .line1, .line2, .line3, .line4 {
+   border: black solid 1em; 
+   border-radius: 2em; 
+ }
+
+
+ /* <object type="image/svg+xml" data="/library/tic-tac-toe.svg"> SVG test</object> */
+
+.aside{
+  text-align: center;
+  grid-column: 2/3; 
+
+
+  display: grid; 
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 3em 3em 3em;
+  border-bottom-left-radius: 2em;
+  border-bottom-right-radius: 2em;
+}
+.player1{
+  background-color:#40897b;
+  color: black; 
+  border: 0.5em; 
+} 
+
+.player2{
+  background-color:  #C38d9e;
+  color: black;
+  border: 0.5em; 
+
+}
+
+.score{
+  grid-row: 2/3;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 50% 50%;  
+
+}
+
+.turnContainer{
+  display: grid; 
+
+  grid-template-rows: 3em 3em; 
+  grid-template-columns: 1/2; 
+  grid-column: 1/3;
+}
+
+.turn{ 
+  grid-row: 1/2;
+  color:black;
+  background-color: #336887;
+} 
+
+.turnNumber{
+  grid-row:2/3;
+} 
+
+
+
+
+/*  below is for effect */
+
+.selected {
+  border-bottom: yellow solid 2px; 
+}
+
+.secondWindow{
+  /* background-color: lightsalmon;  */
+  display: grid;
+  grid-template-columns: 20em 20em;
+  grid-template-rows: 5em 5em; 
+  border: solid 1px rgb(159, 96, 71);
+  position: absolute;
+  /* why not absolute to the parents window? */
+  
+  top: 50%;
+  left: 50%;
+  margin-left: -321px;
+  text-align: center;
+  color: black;
+  z-index: 1333;  
+
+}
+
+.thirdWindow{
+  grid-column: 1/3; 
+  grid-row: 1/2; 
+  background-color: #f98866;
+
+}
+
+.fourthWindow{
+  grid-column:auto;
+  grid-row: auto; 
+  background-color: #80bd9e;
+}
+.fifthWindow{
+  background-color:#78a6c1;
+
+}
+
+
+.colorBoard{
+  color: #f98866;
+  color: #ff420e;
+  color: #80bd9e;
+  color: #89da59;
+  color: #336887;
+
+}
+
+img{
+  /* grid-area: 1/1/2/2; */
+
+  /* display: flex;
+
+  position: absolute;  */
+  /* left: 50%; 
+  top: 50%;  */
+  /* justify-content: center;
+  align-content: center; */
+  height: 10em;
+  border: none;
+  
+}
+
+.red{
+  background-color:red;
+}
+
+.Usericon1, .Usericon2{
+  width: auto;
+  height: 5em;
+  /* animation-iteration-count: infinite;  */
+  
+  /* -webkit- animation-duration: 3s; */
+  /* -webkit-animation-delay: 4; */
+  /* -webkit-animation-iteration-count: infinite; */
+} 
+
+.bounce{
+
+  animation-duration: 0.5s; 
+  animation-iteration-count: infinite; 
+
+}
+
+
+.img{
+
+}
