@@ -21,6 +21,7 @@
   border-radius: 0.5em; 
   
   font-family: 'Patrick Hand', cursive;  
+  box-sizing: border-box;
  
 }
 
@@ -29,7 +30,7 @@
   
   body{
     border: none;
-    position: relative;
+    /* position: relative; */
   }
 
 
@@ -69,6 +70,10 @@
   
 }
 
+.game{
+  
+}
+
 .game:hover {
   background-color: #df4b55;
   -webkit-transition: background-color 0.9s ease-out;
@@ -92,11 +97,13 @@
 
    display: grid;   
    justify-content: center; 
+   align-content: center; 
    grid-template-columns: 12em 2em 12em 2em 12em;
    grid-template-rows: 12em 2em 12em  2em 12em;
    width: 700px;
    height: 700px;
-   background-color: white;
+   border: 0.5em  rgb(223, 188, 199) solid; 
+
    /* position: relative; */
    
  }
@@ -144,9 +151,9 @@
  .line1, .line2, .line3, .line4 {
    /* border: black solid 1em;  */
    border-radius: 2em; 
-   background-color:black;
-   z-index: 33;
- }
+   background-color:#80bd9e;
+   /* z-index:  */
+ }  
 
 
  /* <object type="image/svg+xml" data="/library/tic-tac-toe.svg"> SVG test</object> */
@@ -169,6 +176,8 @@
   background-color:#c9c964;
   color: black; 
   border: 0.5em; 
+  animation-iteration-count: infinite; 
+  /* transform: scale(3) */
 } 
 
 .player2{
@@ -177,6 +186,7 @@
   background-color:  rgb(223, 188, 199);
   color: black;
   border: 0.5em; 
+  animation-iteration-count: infinite; 
 
 }
 
@@ -299,13 +309,14 @@ img{
 }
 
 
+
 .Usericon1, .Usericon2{
   display: flex;
   justify-content: center;  
   align-items: center; 
   width: auto;
   height: auto;
-
+  
   /* animation-iteration-count: infinite;  */
   
   /* -webkit- animation-duration: 3s; */
@@ -313,12 +324,23 @@ img{
   /* -webkit-animation-iteration-count: infinite; */
 } 
 
+.flash{
+  
+  animation-iteration-count: infinite; 
+}
 .bounce{
-
+  
   animation-duration: 0.5s; 
   animation-iteration-count: infinite; 
-
+  
 }
 
 
+.mapIcon{
+  box-shadow: #78a6c1
+}
 
+
+.fakebody{
+  position: relative;
+}

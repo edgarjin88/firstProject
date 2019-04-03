@@ -67,6 +67,7 @@ let $message1 = $('<div>Do you want to play game?</div>').addClass('thirdWindow'
 let $message2 =$('<div>Do you want to quit?</div>').addClass('thirdWindow')
 let $message3 =$('<div>You Won! One more game?</div>').addClass('thirdWindow')
 let $message4 =$('<div>Draw Game! One more game?</div>').addClass('thirdWindow')
+let $message5 =$('<div>Game Started!</div>').addClass('thirdWindow')
 let $yes = $('<div>yes</div>').addClass('fourthWindow')
 let $no = $('<div>no</div>').addClass('fifthWindow')
 
@@ -77,6 +78,10 @@ let $no = $('<div>no</div>').addClass('fifthWindow')
 let $secondWindow; 
 let $gameStart = $('#GameStart'); 
 
+$('.nowPlaying').html('')
+
+// $gameStart.on('hover').removeClass('flash')
+
 $gameStart.on('mousedown', function(){
   $gameStart.addClass('red').on('mouseup', function(){
     $gameStart.removeClass('red')
@@ -85,6 +90,8 @@ $gameStart.on('mousedown', function(){
     $('.score1').html(record.player1win)
     $('.score2').html(record.player2win)
     $('.turnNumber').html(0)
+   
+    $('.game').removeClass('flash')
   })
 
   $secondWindow = $div.append($message0).append($yes, $no)
@@ -108,8 +115,10 @@ $gameStart.on('mousedown', function(){
  //if I can see on the window, doesn't that mean it is already updated? 
     
     $yes.on('click', ()=>{
+      $('.game').html('Now You Playing!')  
       gameStart()
       $('.secondWindow').fadeOut();
+      turnChange(currentPlayer); 
       // $('.secondWindow').remove();
 
 
@@ -118,8 +127,10 @@ $gameStart.on('mousedown', function(){
      })
   
      $no.on('click', ()=>{
-     
+
+      
       $('.secondWindow').fadeOut();
+      $('.game').addClass('flash').html('Click to Start a New Game!')
       // $('.secondWindow').remove();
   
   })
@@ -186,9 +197,13 @@ $gameStart.on('mousedown', function(){
     if(currentPlayer == playerOne){
       $('.icon1').addClass('animated bounce')
       $('.icon2').removeClass('animated bounce')
+      $('.player1').addClass('animated pulse')
+      $('.player2').removeClass('animated pulse')
     }else if(currentPlayer ==playerTwo) {
       $('.icon2').addClass('animated bounce')
       $('.icon1').removeClass('animated bounce')
+      $('.player2').addClass('animated pulse')
+      $('.player1').removeClass('animated pulse')
     }
 
     $('.turnNumber').html(record.turns)
@@ -196,7 +211,6 @@ $gameStart.on('mousedown', function(){
   }
 
   function gameStart(){ //randomely set up who is going to play first
-    console.log('game start fired');
     resetBoard()
     $('.cells').html("")
     let num = Math.ceil(Math.random() * 10)
@@ -208,23 +222,35 @@ $gameStart.on('mousedown', function(){
     } else{
       currentPlayer = playerTwo
     }
-    record.turns =1; 
+    record.turns =0; 
     $('.turnNumber').html(record.turns)
+
+    //////below code to be removed
+
+
+   
 
  }
 
   let $gameBoard = $('.gameboard')
   // 다른 에리어가 클릭 되었을 때 엄한 아이디를 받지 않도록 주의하자. a, b, c로 시작하는 아이디만 엔터 하도록 하자. 
-  $gameBoard.on('click', (event)=>{
+  // event delegation
+  $gameBoard.on('click', '.cells', (event)=>{
     // console.log('fired:, updated: event.target.id: ', event.target.id);
     let digit = event.target.id.split("")
     
-    // console.log('event.target', event.target);
-    if(currentPlayer == 1){
-      $(event.target).append(icon1).hide().fadeIn(500).addClass('animated flip')
 
+    // console.log('event.target', event.target);
+    if(gameBoard[digit[0]][digit[1]] = gameBoard[digit[0]][digit[1]]){
+      console.log('the cells already taken');
+      // order always matters. 
+    }
+    else if(currentPlayer == 1){
+      $(event.target).append(icon1).hide().fadeIn(500).addClass('animated flip').addClass('mapIcon')
+      // turnChange(currentPlayer)
     }else if(currentPlayer ==2){
-      $(event.target).append(icon2).hide().fadeIn(500).addClass('animated flip');
+      $(event.target).append(icon2).hide().fadeIn(500).addClass('animated flip').addClass('mapIcon');
+      // turnChange(currentPlayer)
     } 
     
     if(gameBoard[digit[0]][digit[1]]===0){
@@ -232,9 +258,6 @@ $gameStart.on('mousedown', function(){
 
       turnChange(currentPlayer); 
       //turn change here. 
-     }else{
-      gameBoard[digit[0]][digit[1]] = gameBoard[digit[0]][digit[1]]
-      //no turn change here. 
      }
     
      winCheck(currentPlayer) //order always matters. 
@@ -265,6 +288,7 @@ $gameStart.on('mousedown', function(){
     
     let message = `Player ${currentPlayer} won!
     You wish to continue playing?`
+
     //append button, and on click, resetBoard to be fired
     // If whole game stops, game start. 
  
@@ -305,10 +329,58 @@ $gameStart.on('mousedown', function(){
 
 
     }
+
+    
    
  
   }
   
 ///////////////////// at the end of document.ready////////////////////////////////////
+
+
+/////// AI system//////////////
+
+
+
+
+// player2 일 경우에만 실행한다. 
+
+// random 으로 맵이 제로인 곳을 픽업 한다. 
+// for loop를 사용할지, jquery를 사용할지 알아보자. 
+
+//그다음 아이디 값을 기반으로 해서 다시 추격해서 맵에다가 아이콘 올리도록 한다. 
+
+
+// 중복되는 펑션들은 밖으로 빼서 리팩토링 하도록 하자. 
+
+
+
+
+
+////////////////////////////
 })
 
+
+/////
+
+// let emptyCells = []
+
+// for (let line in gameBoard) {
+//   for(let i = 0; i <gameBoard[line].length; i++){
+//     if(gameBoard[line][i] ===0){
+//       emptyCells.push(gameBoard[line][i])
+
+//       let num = Math.ceil(Math.random() * 10)
+
+    
+//     if(num <6){
+//       // click
+        //마지막까지 클릭을 안 할 상황도 생긴다. 
+        // 클릭 할 때 카운터 한번 올리고, 카운터가 제로면 한번더 돌리는 걸로 하자. 
+        // 클릭 안하면 걍 턴 한번 더 돌리자. 
+
+//     }
+//   }
+// }
+// console.log('curretnly empty cells: ', emptyCells)
+   
