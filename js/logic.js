@@ -66,8 +66,12 @@ let $message0 = $('<div> Game start?</div>').addClass('thirdWindow')
 let $message1 = $('<div>Do you want to play game?</div>').addClass('thirdWindow')
 let $message2 =$('<div>Do you want to quit?</div>').addClass('thirdWindow')
 let $message3 =$('<div>You Won! One more game?</div>').addClass('thirdWindow')
+let $message4 =$('<div>Draw Game! One more game?</div>').addClass('thirdWindow')
 let $yes = $('<div>yes</div>').addClass('fourthWindow')
 let $no = $('<div>no</div>').addClass('fifthWindow')
+
+
+
 
 
 let $secondWindow; 
@@ -136,6 +140,21 @@ $gameStart.on('mousedown', function(){
 
   }
 
+  function drawWindow(){
+    $secondWindow = $div.append($message4).append($yes, $no)
+  
+    $body.append($secondWindow);  
+    $secondWindow.hide().fadeIn(500);
+  
+    //layout done 
+    $secondWindow.on('mousedown', function(event){
+       $(event.target).addClass('red')
+       .on('mouseup', ()=>{ $(event.target).removeClass('red')})
+     
+    })
+  
+  }
+
 
  
  
@@ -145,7 +164,7 @@ $gameStart.on('mousedown', function(){
 //popup, z-index 
 //////////////////DOM part end /////////////////////////////////////////////////////////////////
 
-
+//draw 펑션도 만들어라. 
 
   function resetBoard(){
     gameBoard ={ // we need game board objec to update DOM eventually. 
@@ -155,7 +174,7 @@ $gameStart.on('mousedown', function(){
   }
   }
   
-  resetBoard();
+  // resetBoard();
   
 
   let icon1 ='<img src="/library/c.svg" alt="c">'
@@ -165,12 +184,13 @@ $gameStart.on('mousedown', function(){
     record.turns += 1
     currentPlayer = player === playerOne ? playerTwo : playerOne; 
     if(currentPlayer == playerOne){
-      $('.Usericon1').addClass('animated bounce')
-      $('.Usericon2').removeClass('animated bounce')
+      $('.icon1').addClass('animated bounce')
+      $('.icon2').removeClass('animated bounce')
     }else if(currentPlayer ==playerTwo) {
-      $('.Usericon2').addClass('animated bounce')
-      $('.Usericon1').removeClass('animated bounce')
+      $('.icon2').addClass('animated bounce')
+      $('.icon1').removeClass('animated bounce')
     }
+
     $('.turnNumber').html(record.turns)
   
   }
@@ -188,7 +208,9 @@ $gameStart.on('mousedown', function(){
     } else{
       currentPlayer = playerTwo
     }
-    record.turns =0; 
+    record.turns =1; 
+    $('.turnNumber').html(record.turns)
+
  }
 
   let $gameBoard = $('.gameboard')
@@ -263,7 +285,7 @@ $gameStart.on('mousedown', function(){
       // on click, pop up(css), click 
       record.player1win += 1 // win counter increased //NaN. 
       //window pop up 
-      console.log('player one won');
+      // console.log('player one won');
       $('.score1').html(record.player1win)
       winnerWindow()
       //DOM control function to be started. 
@@ -271,11 +293,19 @@ $gameStart.on('mousedown', function(){
       // you
     }else if(l1 ==8  || l2 ==8|| l3 ==8|| l4 ==8|| l5 ==8 || l6 ==8|| l7 ==8 || l8 ==8){
       record.player2win += 1
-      console.log('player two won');
+      // console.log('player two won');
       $('.score2').html(record.player2win) 
       winnerWindow()
       
     }
+
+    else if(record.turns >9){
+      
+      drawWindow()
+
+
+    }
+   
  
   }
   
