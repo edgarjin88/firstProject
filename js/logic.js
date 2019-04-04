@@ -27,7 +27,8 @@
 
 //button to be clicked, start 
 
-
+// 시작시 바로 시작 하지 않는 점. 
+// 끝나고 클릭 되는 점. 
 
 
 /////
@@ -116,10 +117,13 @@ $gameStart.on('mousedown', function(){
     
     $yes.on('click', ()=>{
       $('.game').html('Now You Playing!')  
+      $('.cells').removeClass('animated')
       gameStart()
       $('.secondWindow').fadeOut();
-      turnChange(currentPlayer); 
-      // $('.secondWindow').remove();
+      // turnChange(currentPlayer); 
+      $('.secondWindow').remove();
+      
+
 
 
 
@@ -182,7 +186,10 @@ $gameStart.on('mousedown', function(){
     a: [0, 0, 0], // still faster than for? 
     b: [0, 0, 0],
     c: [0, 0, 0]
+
+    
   }
+  // currentPlayer = 1
   }
   
   // resetBoard();
@@ -212,18 +219,31 @@ $gameStart.on('mousedown', function(){
 
   function gameStart(){ //randomely set up who is going to play first
     resetBoard()
+    $('.cells').removeClass('animated')
+
+    console.log(gameBoard)  
+    
     $('.cells').html("")
     let num = Math.ceil(Math.random() * 10)
 
-    
+   
+    // debugger 
     if(num <6){
       currentPlayer = playerOne
       // playerOne starts
     } else{
       currentPlayer = playerTwo
     }
-    record.turns =0; 
+    record.turns =1; 
     $('.turnNumber').html(record.turns)
+    if(currentPlayer ===2){
+      
+      randomPick()
+    }
+
+   
+
+  
 
     //////below code to be removed
 
@@ -231,8 +251,34 @@ $gameStart.on('mousedown', function(){
    
 
  }
+function anotherRandom(){
+  setTimeout(randomPick, 1000)
+}
+ function randomPick(){
+    
+  if(currentPlayer ===2){
+    
+    for( let i = 0; i < $cells.length; i++){  
+      if(!document.getElementsByClassName('cells')[i].className.includes('animated')){
+        console.log('random fired');
+        let num = Math.ceil(Math.random() * 10)
+        if(num <7){
+         let aa =$('.cells')[i]
+         aa.click()
+         return
+      }
+      
 
+  }  
+    }
+
+}anotherRandom();
+}
+
+ let $cells = $('.cells')
+//  debugger
   let $gameBoard = $('.gameboard')
+
   // 다른 에리어가 클릭 되었을 때 엄한 아이디를 받지 않도록 주의하자. a, b, c로 시작하는 아이디만 엔터 하도록 하자. 
   // event delegation
   $gameBoard.on('click', '.cells', (event)=>{
@@ -248,8 +294,16 @@ $gameStart.on('mousedown', function(){
     else if(currentPlayer == 1){
       $(event.target).append(icon1).hide().fadeIn(500).addClass('animated flip').addClass('mapIcon')
       // turnChange(currentPlayer)
+      
+      // record.player1win = 
+      setTimeout(randomPick, 1000)
+
+
+
+      
     }else if(currentPlayer ==2){
       $(event.target).append(icon2).hide().fadeIn(500).addClass('animated flip').addClass('mapIcon');
+      
       // turnChange(currentPlayer)
     } 
     
@@ -257,6 +311,7 @@ $gameStart.on('mousedown', function(){
       gameBoard[digit[0]][digit[1]] = currentPlayer // how to check the sopt + update data base
 
       turnChange(currentPlayer); 
+      // if()
       //turn change here. 
      }
     
@@ -312,6 +367,8 @@ $gameStart.on('mousedown', function(){
       // console.log('player one won');
       $('.score1').html(record.player1win)
       winnerWindow()
+      $('.cells').addClass('animated')
+      
       //DOM control function to be started. 
      
       // you
@@ -320,12 +377,16 @@ $gameStart.on('mousedown', function(){
       // console.log('player two won');
       $('.score2').html(record.player2win) 
       winnerWindow()
+      $('.cells').addClass('animated')
+      
       
     }
 
     else if(record.turns >9){
       
       drawWindow()
+      $('.cells').addClass('animated')
+      
 
 
     }
