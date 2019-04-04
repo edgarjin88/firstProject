@@ -2,53 +2,22 @@
 // Break the project down into different components (data, presentation, views, style, DOM manipulation) 
 // Data? here to? 
 
-
-//All logic to be seperated from DOB manipulation.
-// function by function, to be seperated. 
-// Data to be stored as an Object. 
-
-
-// Switch turns between X and O (or whichever markers you select)
-// Visually display which side won if a player gets three in a row or show a draw/"cat’s game" if neither wins
-
-// Deploy your game online, where the rest of the world can access it
-// Use semantic markup for HTML and CSS (adhere to best practices)
-
-
-
-
-
-///////DOM control part////////////////**
- 
-
-//update score board
-//update game board
-// flushing player bottom 
-
-//button to be clicked, start 
-
-// 시작시 바로 시작 하지 않는 점. 
-// 끝나고 클릭 되는 점. 
-
-
-/////
-
 const record = {
   player1win:0, 
   player2win:0, 
   turns: 0
 }
+
 let playerOne = 1
 let playerTwo = 2
 let currentPlayer = 0
 let gameBoard =0
+let gameBoard2 =0
 /// gameStart 이후에, 위의 부분은 돔과 소통한다. Joel의 자바스크립트 파일이 어떻게 Dom 과 소통했는지 리뷰 해 보도록 하자. 
 
 //////////////////other infor should be in document.ready ////////////////////////////////////////
 
 $(document).ready(function(){
-  console.log(`jQuery ready`);
-
 
 
 $body = $('body')
@@ -69,10 +38,9 @@ let $message2 =$('<div>Do you want to quit?</div>').addClass('thirdWindow')
 let $message3 =$('<div>You Won! One more game?</div>').addClass('thirdWindow')
 let $message4 =$('<div>Draw Game! One more game?</div>').addClass('thirdWindow')
 let $message5 =$('<div>Game Started!</div>').addClass('thirdWindow')
+let $message6 =$('<div>You Lost! One more game?</div>').addClass('thirdWindow')
 let $yes = $('<div>yes</div>').addClass('fourthWindow')
 let $no = $('<div>no</div>').addClass('fifthWindow')
-
-
 
 
 
@@ -107,7 +75,6 @@ $gameStart.on('mousedown', function(){
      .on('mouseup', ()=>{ $(event.target).removeClass('red')})
    
   })
-
   })
 
 
@@ -122,12 +89,6 @@ $gameStart.on('mousedown', function(){
       $('.secondWindow').fadeOut();
       // turnChange(currentPlayer); 
       $('.secondWindow').remove();
-      
-
-
-
-
-      
      })
   
      $no.on('click', ()=>{
@@ -140,8 +101,8 @@ $gameStart.on('mousedown', function(){
   })
 })
 
-  function winnerWindow(){
-    $secondWindow = $div.append($message3).append($yes, $no)
+  function winnerWindow(message){
+    $secondWindow = $div.append(message).append($yes, $no)
 
     $body.append($secondWindow);  
     $secondWindow.hide().fadeIn(500);
@@ -150,9 +111,7 @@ $gameStart.on('mousedown', function(){
     $secondWindow.on('mousedown', function(event){
        $(event.target).addClass('red')
        .on('mouseup', ()=>{ $(event.target).removeClass('red')})
-     
     })
-
   }
 
   function drawWindow(){
@@ -171,11 +130,6 @@ $gameStart.on('mousedown', function(){
   }
 
 
- 
- 
-  
-
-
 //popup, z-index 
 //////////////////DOM part end /////////////////////////////////////////////////////////////////
 
@@ -188,9 +142,15 @@ $gameStart.on('mousedown', function(){
     c: [0, 0, 0]
 
     
+  }, 
+  gameBoard2 = {
+    a: [0, 0, 0], // still faster than for? 
+    b: [0, 0, 0],
+    c: [0, 0, 0]
   }
   // currentPlayer = 1
   }
+  
   
   // resetBoard();
   
@@ -238,7 +198,9 @@ $gameStart.on('mousedown', function(){
     $('.turnNumber').html(record.turns)
     if(currentPlayer ===2){
       
-      randomPick()
+      setTimeout(randomPick(), 1500)
+      
+      
     }
 
    
@@ -283,6 +245,7 @@ function anotherRandom(){
   // event delegation
   $gameBoard.on('click', '.cells', (event)=>{
     // console.log('fired:, updated: event.target.id: ', event.target.id);
+    console.log(`event Target fired`, event.target);
     let digit = event.target.id.split("")
     
 
@@ -296,21 +259,31 @@ function anotherRandom(){
       // turnChange(currentPlayer)
       
       // record.player1win = 
-      setTimeout(randomPick, 1000)
+
+      ///////////remove effect of "fadeIn"
+      $('.cells img').fadeIn(1000)
+      $('.gameboard').toggleClass('rotate180', 2000)  
+      setTimeout(randomPick, 2000)
 
 
 
       
     }else if(currentPlayer ==2){
       $(event.target).append(icon2).hide().fadeIn(500).addClass('animated flip').addClass('mapIcon');
-      
+
+      // $('.gameboard').addClass('rotate180')
+      $('.cells img').fadeOut(2000)
+      // $('.cells').css('display', 'hidden')
       // turnChange(currentPlayer)
     } 
     
     if(gameBoard[digit[0]][digit[1]]===0){
       gameBoard[digit[0]][digit[1]] = currentPlayer // how to check the sopt + update data base
 
-      turnChange(currentPlayer); 
+      
+      //turn and other effect starts. 1 seconds later. 
+      
+      turnChange(currentPlayer)
       // if()
       //turn change here. 
      }
@@ -366,7 +339,7 @@ function anotherRandom(){
       //window pop up 
       // console.log('player one won');
       $('.score1').html(record.player1win)
-      winnerWindow()
+      winnerWindow($message3)
       $('.cells').addClass('animated')
       
       //DOM control function to be started. 
@@ -376,7 +349,7 @@ function anotherRandom(){
       record.player2win += 1
       // console.log('player two won');
       $('.score2').html(record.player2win) 
-      winnerWindow()
+      winnerWindow($message6)
       $('.cells').addClass('animated')
       
       
@@ -391,6 +364,8 @@ function anotherRandom(){
 
     }
 
+    //I think I can just get all the remove class things out here. 
+    
     
    
  
