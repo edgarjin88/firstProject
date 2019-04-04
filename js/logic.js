@@ -195,8 +195,8 @@ $gameStart.on('mousedown', function(){
   // resetBoard();
   
 
-  let icon1 ='<img src="/library/c.svg" alt="c">'
-  let icon2 ='<img src="/library/x.svg" alt="x">'
+  let icon1 ='<img src="library/c.svg" alt="c">'
+  let icon2 ='<img src="library/x.svg" alt="x">'
 
   function turnChange(player){ // can I use currentPlayer, the same variable name? 
     record.turns += 1
