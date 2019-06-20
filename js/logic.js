@@ -23,11 +23,7 @@ $(document).ready(function(){
 $body = $('body')
 
 ///////DOM control part////////////////**
- 
 
-//update score board
-//update game board
-// flushing player bottom 
 
 //button to be clicked, start 
 let $div =$('<div></div>').addClass('secondWindow')
@@ -77,11 +73,7 @@ $gameStart.on('mousedown', function(){
   })
   })
 
-
   $body.on('click', ()=>{
- // event delegation. But outside of body tag not working? 
- //if I can see on the window, doesn't that mean it is already updated? 
-    
     $yes.on('click', ()=>{
       $('.game').html('Now You Playing!')  
       $('.cells').removeClass('animated')
@@ -133,7 +125,7 @@ $gameStart.on('mousedown', function(){
 //popup, z-index 
 //////////////////DOM part end /////////////////////////////////////////////////////////////////
 
-//draw 펑션도 만들어라. 
+
 
   function resetBoard(){
     gameBoard ={ // we need game board objec to update DOM eventually. 
@@ -150,9 +142,7 @@ $gameStart.on('mousedown', function(){
   }
   // currentPlayer = 1
   }
-  
-  
-  // resetBoard();
+
   
 
   let icon1 ='<img src="library/c.svg" alt="c">'
@@ -203,16 +193,8 @@ $gameStart.on('mousedown', function(){
       
     }
 
-   
-
-  
-
-    //////below code to be removed
-
-
-   
-
  }
+
 function anotherRandom(){
   setTimeout(randomPick, 1000)
 }
@@ -295,21 +277,8 @@ function anotherRandom(){
     console.log('currentPlayer :', currentPlayer)
   
   })  
-    // turnchange, turn count, player change, place record done. 
-    
-    
 
-    // $('#GameStart').on('click', function(){
-    // gameStart();  
-    // Game start on click, all reset, current player randomly taken. 
-  
 
-    // })
-  
-
-//// 상하 좌우 뒤집히는 로직 만들자. 
-
-////////////////////////////////////////////done//////////////////////////////////////////////////////////////////
 
   
   function winCheck(currentPlayer){
@@ -364,59 +333,12 @@ function anotherRandom(){
 
     }
 
-    //I think I can just get all the remove class things out here. 
-    
-    
-   
  
   }
   
-///////////////////// at the end of document.ready////////////////////////////////////
 
-
-/////// AI system//////////////
-
-
-
-
-// player2 일 경우에만 실행한다. 
-
-// random 으로 맵이 제로인 곳을 픽업 한다. 
-// for loop를 사용할지, jquery를 사용할지 알아보자. 
-
-//그다음 아이디 값을 기반으로 해서 다시 추격해서 맵에다가 아이콘 올리도록 한다. 
-
-
-// 중복되는 펑션들은 밖으로 빼서 리팩토링 하도록 하자. 
-
-
-
-
-
-////////////////////////////
 })
 
 
-/////
 
-// let emptyCells = []
-
-// for (let line in gameBoard) {
-//   for(let i = 0; i <gameBoard[line].length; i++){
-//     if(gameBoard[line][i] ===0){
-//       emptyCells.push(gameBoard[line][i])
-
-//       let num = Math.ceil(Math.random() * 10)
-
-    
-//     if(num <6){
-//       // click
-        //마지막까지 클릭을 안 할 상황도 생긴다. 
-        // 클릭 할 때 카운터 한번 올리고, 카운터가 제로면 한번더 돌리는 걸로 하자. 
-        // 클릭 안하면 걍 턴 한번 더 돌리자. 
-
-//     }
-//   }
-// }
-// console.log('curretnly empty cells: ', emptyCells)
    

@@ -18,12 +18,15 @@ Making Tic Tac Toe from the scratch.
 -If you click the "click to start" icon, and drag your mouse down, color would remain as changed. 
 
 #Wishlist/Future features
+-First of all, refactorying first. 
 -To work on debugging and refactorying.
 -Level up system::
+
  a. First level: blind play
  b. Second level: blind play + game board spinning. 
  c. Third level: make another game board and change the game board every turn so that user have to play against two AI without looking at it. 
 
+-Readme file markdown update. 
 -Cube animation effect when change the gameboard, but only on the gameboard, not the whole page. 
 -To be adjusted for Mobile
 -Improve CSS color combination and details
